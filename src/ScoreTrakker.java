@@ -25,7 +25,7 @@ public class ScoreTrakker {
 				int score = Integer.parseInt(scoreString);
 				students.add(new Student(name, score));
 			} catch (Exception NumberFormatException) {
-				System.out.println("Incorrect format for " + name + "not a valid score: " + scoreString);
+				System.out.println("Incorrect format for " + name + ". not a valid score: " + scoreString + "\n");
 			}
 		}
 		in.close();
@@ -37,14 +37,21 @@ public class ScoreTrakker {
 		for (Student s : students) {
 			System.out.println(s);
 		}
+		System.out.println(""); // prints a newline to help with console readability
 	}
 	
 	// 
-	private void processFiles() throws FileNotFoundException {
+	private void processFiles() {
 		for (String fileName : files) {
-			loadDataFromFile(fileName);
+			try {
+				loadDataFromFile(fileName);
+				printInOrder();
+			} catch (FileNotFoundException excep) {
+				System.out.println(excep.getMessage());
+			}
+			
 		}
-		printInOrder();
+
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
